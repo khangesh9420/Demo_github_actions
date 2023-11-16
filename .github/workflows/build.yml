@@ -1,8 +1,18 @@
-on : push
+name : Build Next.js web applicatiion 
+on: push
 jobs:
-    first-job:
+    Build-project:
+        name: Build project
         runs-on: windows-latest
         steps:
-            - run : node --version
-            - run : npm --version
-
+        - name: Checkout code
+          uses: actions/checkout@v3
+        - name: Install NpM dependencies 
+          run : npm install
+        - name: Build project assets
+          run : npn run build
+        - name: upload static site content
+          uses: actions/upload-artifact@v3
+          with:
+            name: static-site
+            path: .next/
